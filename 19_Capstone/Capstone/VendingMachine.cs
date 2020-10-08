@@ -28,13 +28,11 @@ namespace Capstone
 
         // reference to an object of type. //return product list we made in product loader
         //printProductList() loop through slot products and return properties ( these will be printed in Menu)
-        public string[] PrintProductList()
+        public Dictionary<string, string> PrintProductList()
         {
-            foreach (Product products in LoadProducts)
-            {
-
-            }
+            
         }
+
         //dispenseItem() ask for product code, if doesn't exist, send back to purchase menu, as as sold out
             //if valid dispense/return item
             //update balance

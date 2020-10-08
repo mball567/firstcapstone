@@ -6,10 +6,10 @@ using System.Text;
 
 namespace Capstone
 {
-    public static class ProductLoader
+    public class ProductLoader
     {
 
-        public static IEnumerable<Product> LoadProducts(string filePath)
+        public IEnumerable<Product> LoadProducts(string filePath)
         {
 
             filePath = @"C:\Users\Student\git\c-module-1-capstone-team-0\19_Capstone\vendingmachine.csv";
@@ -32,9 +32,8 @@ namespace Capstone
 
                 }
             }
-            return products;
-        
-        }
+            return products;       
+        }       
 
     }
 }
