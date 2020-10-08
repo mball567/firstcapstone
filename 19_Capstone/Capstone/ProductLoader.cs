@@ -6,14 +6,19 @@ using System.Text;
 
 namespace Capstone
 {
-    public class ProductLoader
+    public static class ProductLoader
     {
-        public static void LoadProducts(string filePath)
+
+        public static IEnumerable<Product> LoadProducts(string filePath)
         {
+
             filePath = @"C:\Users\Student\git\c-module-1-capstone-team-0\19_Capstone\vendingmachine.csv";
+
+            List<Product> products = new List<Product>();
 
             using (StreamReader productList = new StreamReader(filePath))
             {
+            
                 while (!productList.EndOfStream)
                 {
                     string input = productList.ReadLine();
@@ -23,8 +28,13 @@ namespace Capstone
                     decimal price = decimal.Parse(fields[2]);
                     string category = fields[3];
                     Product prod = new Product(slotLocation, name, price, category);
+                    products.Add(prod);
+
                 }
             }
+            return products;
+        
         }
+
     }
 }
