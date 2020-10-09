@@ -45,12 +45,13 @@ namespace Capstone
         public Product dispenseItem(string slotLocation)
         {
             
-            foreach (Product pd in Inventory)
+            foreach (Product prod in Inventory)
             {
-                if (pd.SlotLocation == slotLocation)
+                if (prod.SlotLocation == slotLocation)
                 {
-                    pd.Quantity -= 1;
-                    return pd;
+                    prod.Quantity--;
+                    Balance -= prod.Price;
+                    return prod;
                 }              
             }
             return null;

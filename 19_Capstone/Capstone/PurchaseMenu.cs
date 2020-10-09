@@ -1,4 +1,5 @@
 ﻿using MenuFramework;
+using Microsoft.VisualBasic.CompilerServices;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -70,54 +71,55 @@ namespace Capstone
             }
             return MenuOptionResult.WaitAfterMenuSelection;
         }
-        
+
         private MenuOptionResult SelectProduct()
         {
             MainMenu mMenu = new MainMenu(this.vendingMachine);
             mMenu.DisplayItems();
 
             Console.WriteLine("Please enter the Slot Location of the item you would like to purchase.");
+
             string sltLocation = Console.ReadLine();
 
-            //loop thru inventory -- if product does not exist, customer is informed. if sold out, customer is informed (retun to purchase menu)
-
-            foreach (Product prod in this.vendingMachine.Inventory)
+            if (mMenu.CorrectSlotLocations.Contains(sltLocation))
             {
-                if (sltLocation == prod.SlotLocation)
+
+                //loop thru inventory -- if product does not exist, customer is informed. if sold out, customer is informed (retun to purchase menu)
+
+                foreach (Product prod in this.vendingMachine.Inventory)
                 {
                     //decrement quant and print name cost and money remaining and message sound
-                    if (prod.Price < this.vendingMachine.Balance)
+                    if (sltLocation == prod.SlotLocation)
                     {
-                        if (prod.Quantity > 0)
-                        { 
-                            prod.Quantity--;
-                            this.vendingMachine.Balance -= prod.Price;
-                            Console.WriteLine($"You just bought: {prod.Name} | Price: ${prod.Price} | You have: ${this.vendingMachine.Balance} remaining.");
-                            
-                        }
-                        else
+                        if (prod.Price < this.vendingMachine.Balance)
                         {
-                            Console.WriteLine("This product is sold out. Please enter a different slot location.");
-                            
+                            if (prod.Quantity > 0)
+                            {
+                                vendingMachine.dispenseItem(prod.SlotLocation);
+                                Console.WriteLine($"You just bought: {prod.Name} | Price: ${prod.Price} | You have: ${this.vendingMachine.Balance} remaining.");
+                            }
+                            if (prod.Quantity < 1)
+                            {
+                                Console.WriteLine("This product is sold out. Please enter a different slot location.");
+                            }
+                        }
+                        if (prod.Price > this.vendingMachine.Balance)
+                        {
+                            Console.WriteLine("You did not provide enough money, please feed more money and try again!");
                         }
                     }
-                    else
-                    {
-                        Console.WriteLine("You did not provide enough money, please feed more money and try again!");
-                        
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Your slot location was not correct");
-                    
                 }
             }
+            else
+            {
+                Console.WriteLine("Your slot location is incorrect, please try again!");
+            }
+
+            List<Product> temp = vendingMachine.Inventory;
+
             return MenuOptionResult.WaitAfterMenuSelection;
-
         }
-
-
+        
     }
 
 }

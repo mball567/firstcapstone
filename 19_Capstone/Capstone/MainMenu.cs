@@ -9,6 +9,7 @@ namespace Capstone
     {
         private VendingMachine VendingMachine;
         private ProductLoader ProductLoader;
+        public List<string> CorrectSlotLocations;
 
         public MainMenu(VendingMachine vendingMachine)
         {
@@ -29,6 +30,8 @@ namespace Capstone
 
         public MenuOptionResult DisplayItems()
         {
+            List<string> correctSlotLocations = new List<string>();
+
             VendingMachine.GetProductList();
             string[] headings = { "Slot Location", "Product Name", "Price", "Quantity" };
 
@@ -40,8 +43,13 @@ namespace Capstone
 
             foreach (Product prod in VendingMachine.Inventory)
             {
+                correctSlotLocations.Add(prod.SlotLocation);
+
                 Console.WriteLine($"{prod.SlotLocation, -14} {prod.Name, 20} {prod.Price, 6} {prod.Quantity, 10}");
+
             }
+
+            CorrectSlotLocations = correctSlotLocations;
 
             return MenuOptionResult.WaitAfterMenuSelection;
         }

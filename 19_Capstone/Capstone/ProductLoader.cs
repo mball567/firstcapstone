@@ -27,8 +27,7 @@ namespace Capstone
                     string name = fields[1];
                     decimal price = decimal.Parse(fields[2]);
                     string category = fields[3];
-                    int quantity = 5;
-                    Product prod = new Product(slotLocation, name, price, category, quantity);
+                    Product prod = new Product(slotLocation, name, price, category);
                     products.Add(prod);
 
                 }
