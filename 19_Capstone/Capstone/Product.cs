@@ -10,14 +10,15 @@ namespace Capstone
         public string Name { get; set; }
         public decimal Price { get; set; }
         public string Category { get; set; }
-        public int Quantity { get; set; } = 5;
+        public int Quantity { get; set; }
 
-        public Product(string slotLocation, string name, decimal price, string category)
+        public Product(string slotLocation, string name, decimal price, string category, int quantity)
         {
             Category = category;
             Price = price;
             Name = name;
             SlotLocation = slotLocation;
+            Quantity = quantity;
         }
     }
 }

@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.PortableExecutable;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Capstone
 {
     public class VendingMachine 
     {
-        private List<Product> inventoryList;
+        public List<Product> Inventory { get; set; }
 
         public decimal Balance { get; set; } = 0;
-        public IEnumerable<Product> LoadProducts { get; private set; }
 
         //feedMoney -add money to balance
 
@@ -27,20 +28,55 @@ namespace Capstone
         }
 
         // reference to an object of type. //return product list we made in product loader
-        //printProductList() loop through slot products and return properties ( these will be printed in Menu)
-        public Dictionary<string, string> PrintProductList()
+        public void GetProductList()
         {
-            
+            string filePath = @"C:\Users\Student\git\c-module-1-capstone-team-0\19_Capstone\vendingmachine.csv";
+            ProductLoader newLoader = new ProductLoader();
+            List<Product> productList = new List<Product>();
+
+            productList = newLoader.LoadProducts(filePath);
+
+            Inventory = productList;
         }
 
         //dispenseItem() ask for product code, if doesn't exist, send back to purchase menu, as as sold out
             //if valid dispense/return item
             //update balance
-            //in menu print item name, cost, and money remaining, and message
+        public Product dispenseItem(string slotLocation)
+        {
+            
+            foreach (Product pd in Inventory)
+            {
+                if (pd.SlotLocation == slotLocation)
+                {
+                    pd.Quantity -= 1;
+                    return pd;
+                }              
+            }
+            return null;
+        }
 
-        //finishTransaction() %
-         //return proper change 
-         //return to main menu (and print on menu)
+        //dispenseChange with modulus
+        public decimal dispenseChange()
+        {
+            int quarters = 0;
+            int dimes = 0;
+            int nickels = 0;
+
+            
+            quarters = (int)(Balance / .25M);
+            Balance %= .25M;
+
+            dimes = (int)(Balance / .10M);
+            Balance %= .10M;
+
+            nickels = (int)(Balance / .05M);
+            Balance %= .05M;
+
+            return Balance;
+        }
+         
+         
 
 
     }

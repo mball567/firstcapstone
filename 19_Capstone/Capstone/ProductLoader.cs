@@ -9,7 +9,7 @@ namespace Capstone
     public class ProductLoader
     {
 
-        public IEnumerable<Product> LoadProducts(string filePath)
+        public List<Product> LoadProducts(string filePath)
         {
 
             filePath = @"C:\Users\Student\git\c-module-1-capstone-team-0\19_Capstone\vendingmachine.csv";
@@ -27,7 +27,8 @@ namespace Capstone
                     string name = fields[1];
                     decimal price = decimal.Parse(fields[2]);
                     string category = fields[3];
-                    Product prod = new Product(slotLocation, name, price, category);
+                    int quantity = 5;
+                    Product prod = new Product(slotLocation, name, price, category, quantity);
                     products.Add(prod);
 
                 }
