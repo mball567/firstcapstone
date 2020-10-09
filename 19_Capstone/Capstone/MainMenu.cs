@@ -27,7 +27,7 @@ namespace Capstone
             });
         }
 
-        private MenuOptionResult DisplayItems()
+        public MenuOptionResult DisplayItems()
         {
             VendingMachine.GetProductList();
             string[] headings = { "Slot Location", "Product Name", "Price", "Quantity" };
