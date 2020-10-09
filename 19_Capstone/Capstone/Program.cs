@@ -6,7 +6,15 @@ namespace Capstone
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            VendingMachine vendingMachine = new VendingMachine();
+
+            // Create and launch the main menu
+            MainMenu mainMenu = new MainMenu(vendingMachine);
+            mainMenu.Show();
+
+            // Exit the program
+            Console.WriteLine("Thanks for buying!");
+            Console.ReadKey();
         }
     }
 }

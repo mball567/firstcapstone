@@ -14,7 +14,7 @@ namespace Capstone
 
         //feedMoney -add money to balance
 
-        public void FeedMoney(decimal moneyFed)
+        public void FeedMoneyIn(decimal moneyFed)
         {
             if (moneyFed == 1.00M || moneyFed == 2.00M || moneyFed == 5.00M || moneyFed == 10.00M)
             {
@@ -67,17 +67,18 @@ namespace Capstone
             quarters = (int)(Balance / .25M);
             Balance %= .25M;
 
-            dimes = (int)(Balance / .10M);
-            Balance %= .10M;
+            if (Balance > 0)
+            {
+                dimes = (int)(Balance / .10M);
+                Balance %= .10M;
 
-            nickels = (int)(Balance / .05M);
-            Balance %= .05M;
-
+                if(Balance > 0) 
+                {
+                    nickels = (int)(Balance / .05M);
+                    Balance %= .05M;
+                }                   
+            }          
             return Balance;
-        }
-         
-         
-
-
+        }                
     }
 }
