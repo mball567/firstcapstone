@@ -34,7 +34,7 @@ namespace Capstone
             });
         }
 
-        //Make a menu option result DisplayItems method  that prints out the current inventory of products neatly
+        //Make a menu option result DisplayItems method that prints out the current inventory of products neatly
         public MenuOptionResult DisplayItems()
         {
             //Make a new list of slot locations so we can call on this method to later verify if slot loaction input is valid
