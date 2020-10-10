@@ -12,8 +12,6 @@ namespace Capstone
         public List<Product> LoadProducts(string filePath)
         {
 
-            filePath = @"C:\Users\Student\git\c-module-1-capstone-team-0\19_Capstone\vendingmachine.csv";
-
             List<Product> products = new List<Product>();
 
             using (StreamReader productList = new StreamReader(filePath))
@@ -34,6 +32,5 @@ namespace Capstone
             }
             return products;       
         }       
-
     }
 }

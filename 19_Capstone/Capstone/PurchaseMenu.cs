@@ -2,6 +2,7 @@
 using Microsoft.VisualBasic.CompilerServices;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Capstone
@@ -15,12 +16,17 @@ namespace Capstone
             this.vendingMachine = vendingMachine;
             AddOption("Feed Money", FeedMoney);
             AddOption("Select Product", SelectProduct);
-
+            AddOption("Finish Transaction", FinishTransaction);
             AddOption("Exit", Exit);
 
             Configure(cfg =>
             {
                 cfg.Title = "*** Purchase Menu ***";
+                cfg.ItemForegroundColor = ConsoleColor.Blue;
+                cfg.SelectedItemForegroundColor = ConsoleColor.White;
+                cfg.SelectedItemBackgroundColor = ConsoleColor.DarkBlue;
+                cfg.Selector = ">> ";
+                cfg.BeepOnError = true;
             });
         }
 
@@ -29,6 +35,7 @@ namespace Capstone
             Console.WriteLine("How much money would you like to feed the machine? $1 $2 $5 or $10 only");
             decimal moneyFed = 0.00M;
             decimal extraMoneyFed = 0.00M;
+            
             moneyFed = decimal.Parse(Console.ReadLine());
 
 
@@ -52,10 +59,16 @@ namespace Capstone
             {
                 Console.WriteLine("How much more would you like to add?");
                 extraMoneyFed = decimal.Parse(Console.ReadLine());
-               
+
+                using (StreamWriter sw = new StreamWriter(@"C:\Users\Student\git\c-module-1-capstone-team-0\19_Capstone\log.txt", true))
+                {
+                    sw.WriteLine($"{DateTime.Now} FEED MONEY: ${moneyFed} ${vendingMachine.Balance}");
+                }
+
                 if (extraMoneyFed == 1 || extraMoneyFed == 2 || extraMoneyFed == 5 || extraMoneyFed == 10)
                 {
                     moneyFed += extraMoneyFed;
+                    vendingMachine.FeedMoneyIn(extraMoneyFed);
                     Console.WriteLine($"Current money provided is now = ${moneyFed} Would you like to add more? (Y/N)");
                     yesOrNo = Console.ReadLine();
                 }
@@ -97,13 +110,29 @@ namespace Capstone
                             {
                                 vendingMachine.dispenseItem(prod.SlotLocation);
                                 Console.WriteLine($"You just bought: {prod.Name} | Price: ${prod.Price} | You have: ${this.vendingMachine.Balance} remaining.");
+                                if (prod.Category == "Chip")
+                                {
+                                    Console.WriteLine("Crunch Crunch, Yum!");
+                                }
+                                if (prod.Category == "Candy")
+                                {
+                                    Console.WriteLine("Munch Munch, Yum!");
+                                }
+                                if (prod.Category == "Drink")
+                                {
+                                    Console.WriteLine("Glug Glug, Yum!");
+                                }
+                                if (prod.Category == "Gum")
+                                {
+                                    Console.WriteLine("Chew Chew, Yum!");
+                                }
                             }
                             if (prod.Quantity < 1)
                             {
                                 Console.WriteLine("This product is sold out. Please enter a different slot location.");
                             }
                         }
-                        if (prod.Price > this.vendingMachine.Balance)
+                        else
                         {
                             Console.WriteLine("You did not provide enough money, please feed more money and try again!");
                         }
@@ -118,6 +147,21 @@ namespace Capstone
             List<Product> temp = vendingMachine.Inventory;
 
             return MenuOptionResult.WaitAfterMenuSelection;
+        }
+
+        private MenuOptionResult FinishTransaction()
+        {
+            using (StreamWriter sw = new StreamWriter(@"C:\Users\Student\git\c-module-1-capstone-team-0\19_Capstone\log.txt", true))
+            {
+                sw.WriteLine($"{DateTime.Now} GIVE CHANGE: ${vendingMachine.Balance} $0.00");
+            }
+
+            List<int> change = vendingMachine.dispenseChange();
+
+            Console.WriteLine($"You have been dispensed {change[0]} quarters {change[1]} dimes and {change[2]} nickels!");
+
+
+            return MenuOptionResult.WaitThenCloseAfterSelection;
         }
         
     }

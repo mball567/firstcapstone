@@ -8,7 +8,6 @@ namespace Capstone
     public class MainMenu : ConsoleMenu
     {
         private VendingMachine VendingMachine;
-        private ProductLoader ProductLoader;
         public List<string> CorrectSlotLocations;
 
         public MainMenu(VendingMachine vendingMachine)
@@ -22,9 +21,11 @@ namespace Capstone
             Configure(cfg =>
             {
                 cfg.Title = "*** Main Menu ***";
-                cfg.ItemForegroundColor = ConsoleColor.Gray;
-                cfg.SelectedItemForegroundColor = ConsoleColor.Green;
-                cfg.Selector = "==>";
+                cfg.ItemForegroundColor = ConsoleColor.Blue;
+                cfg.SelectedItemForegroundColor = ConsoleColor.White;
+                cfg.SelectedItemBackgroundColor = ConsoleColor.DarkBlue;
+                cfg.Selector = ">> ";
+                cfg.BeepOnError = true;
             });
         }
 
@@ -32,7 +33,6 @@ namespace Capstone
         {
             List<string> correctSlotLocations = new List<string>();
 
-            VendingMachine.GetProductList();
             string[] headings = { "Slot Location", "Product Name", "Price", "Quantity" };
 
             Console.WriteLine();
