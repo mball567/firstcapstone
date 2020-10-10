@@ -9,16 +9,22 @@ namespace Capstone
 {
     public class PurchaseMenu : ConsoleMenu
     {
+        //Only property is a vending machine
         private VendingMachine vendingMachine;
 
+        //Constructor for purchase menu that is passed in a vending machine
         public PurchaseMenu(VendingMachine vendingMachine)
         {
+            //Assign this.vendingmachine to the passed in vending machine
             this.vendingMachine = vendingMachine;
+            
+            //Add purchase menu options
             AddOption("Feed Money", FeedMoney);
             AddOption("Select Product", SelectProduct);
             AddOption("Finish Transaction", FinishTransaction);
             AddOption("Exit", Exit);
 
+            //Configure look of menu
             Configure(cfg =>
             {
                 cfg.Title = "*** Purchase Menu ***";
@@ -30,41 +36,49 @@ namespace Capstone
             });
         }
 
+        //Make feed money menu option result
         private MenuOptionResult FeedMoney()
         {
+            //Ask how much money the costomer wants to feed in
             Console.WriteLine("How much money would you like to feed the machine? $1 $2 $5 or $10 only");
+
+            //Declare money med and extra money fed decimals
             decimal moneyFed = 0.00M;
             decimal extraMoneyFed = 0.00M;
             
+            //Read the inputted bill ad assign it to money fed
             moneyFed = decimal.Parse(Console.ReadLine());
 
 
-
+            //If input is a valid bill feed money into vending machine
             if (moneyFed == 1 || moneyFed == 2 || moneyFed == 5 || moneyFed == 10)
             {
                 this.vendingMachine.FeedMoneyIn(moneyFed);
             }
+            //Else notify customer of error
             else
             {
                 moneyFed = 0.00M;
                 Console.WriteLine("Error: Please enter only $1, $2, $5, or $10");
             }
             
-            
+            //Ask user if they want to feed in more money
             Console.WriteLine($"Current money provided = ${moneyFed} Would you like to add more? (Y/N)");
             string yesOrNo = Console.ReadLine();
 
-            
+            //Make a while loop that keeps asking and feeding money as long as the user wants to
             while (yesOrNo == "Y" || yesOrNo == "y")
             {
                 Console.WriteLine("How much more would you like to add?");
                 extraMoneyFed = decimal.Parse(Console.ReadLine());
 
+                //Log money fed
                 using (StreamWriter sw = new StreamWriter(@"C:\Users\Student\git\c-module-1-capstone-team-0\19_Capstone\log.txt", true))
                 {
                     sw.WriteLine($"{DateTime.Now} FEED MONEY: ${moneyFed} ${vendingMachine.Balance}");
                 }
 
+                //check if bill is valid again
                 if (extraMoneyFed == 1 || extraMoneyFed == 2 || extraMoneyFed == 5 || extraMoneyFed == 10)
                 {
                     moneyFed += extraMoneyFed;
@@ -78,6 +92,7 @@ namespace Capstone
                     
                 }
             }
+            //Return to main menu
             if (yesOrNo == "N" || yesOrNo == "n")
             {
                 Console.WriteLine("Press enter to return to Purchase Menu");
@@ -85,6 +100,7 @@ namespace Capstone
             return MenuOptionResult.WaitAfterMenuSelection;
         }
 
+        //TODO 02: Finish commenting code
         private MenuOptionResult SelectProduct()
         {
             MainMenu mMenu = new MainMenu(this.vendingMachine);

@@ -12,6 +12,7 @@ namespace Capstone
         public string Category { get; set; }
         public int Quantity { get; set; } = 5;
 
+        //Constructor for Product
         public Product(string slotLocation, string name, decimal price, string category)
         {
             Category = category;
