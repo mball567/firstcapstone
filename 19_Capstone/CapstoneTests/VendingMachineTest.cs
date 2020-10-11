@@ -10,13 +10,13 @@ namespace CapstoneTests
     public class VendingMachineTest
     {
         [DataTestMethod]
-        [DataRow(1, 1)]
-        [DataRow(2, 2)]
-        [DataRow(5, 5)]
-        [DataRow(10, 10)]
+        [DataRow("1", "1")]
+        [DataRow("2", "2")]
+        [DataRow("5", "5")]
+        [DataRow("10", "10")]
 
 
-        public void FeedMoneyInTest(decimal moneyFed, decimal result)
+        public void FeedMoneyInTest(string moneyFed, string result)
         {
             ProductLoader productLoader = new ProductLoader();
 
@@ -24,12 +24,15 @@ namespace CapstoneTests
 
             VendingMachine vendingMachine = new VendingMachine(products);
 
-            decimal actual = vendingMachine.FeedMoneyIn(moneyFed);
+            decimal actual = vendingMachine.FeedMoneyIn(Convert.ToDecimal(moneyFed));
 
-            Assert.AreEqual(result, actual);
+            Assert.AreEqual(Convert.ToDecimal(result), actual);
+
+
+
         }
-        //arrange
-        
+
+
 
     }
 }

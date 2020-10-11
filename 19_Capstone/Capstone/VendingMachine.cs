@@ -45,7 +45,7 @@ namespace Capstone
             return Balance;
         }
 
-        //Make a dispense item method that is passed in a slot loaction and dispenses a product at that slot location in the inventory
+        //Make a dispense item method that is passed in a slot location and dispenses a product at that slot location in the inventory
         public Product dispenseItem(string slotLocation)
         {
             //Loop through all the products in Inventory  
