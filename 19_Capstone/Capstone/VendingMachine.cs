@@ -23,7 +23,7 @@ namespace Capstone
 
         //Methods
         //Make a method that feeds $1, $2, $5, or $10 into the machine
-        public void FeedMoneyIn(decimal moneyFed)
+        public decimal FeedMoneyIn(decimal moneyFed)
         {
             //Only accept proper bills
             if (moneyFed == 1.00M || moneyFed == 2.00M || moneyFed == 5.00M || moneyFed == 10.00M)
@@ -42,6 +42,7 @@ namespace Capstone
                 sw.WriteLine($"{DateTime.Now} FEED MONEY: ${moneyFed} ${Balance}");
             }
 
+            return Balance;
         }
 
         //Make a dispense item method that is passed in a slot loaction and dispenses a product at that slot location in the inventory

@@ -45,10 +45,16 @@ namespace Capstone
             //Declare money med and extra money fed decimals
             decimal moneyFed = 0.00M;
             decimal extraMoneyFed = 0.00M;
-            
-            //Read the inputted bill and assign it to money fed
-            moneyFed = decimal.Parse(Console.ReadLine());
+            try
+            {
+                //Read the inputted bill and assign it to money fed
+                moneyFed = decimal.Parse(Console.ReadLine());
 
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error, please enter a valid input.");
+            }
 
             //If input is a valid bill feed money into vending machine
             if (moneyFed == 1 || moneyFed == 2 || moneyFed == 5 || moneyFed == 10)
