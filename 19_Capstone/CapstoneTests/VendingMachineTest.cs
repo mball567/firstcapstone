@@ -10,13 +10,13 @@ namespace CapstoneTests
     public class VendingMachineTest
     {
         [DataTestMethod]
-        [DataRow("1", "1")]
-        [DataRow("2", "2")]
-        [DataRow("5", "5")]
-        [DataRow("10", "10")]
+        [DataRow(1.00, 1.00)]
+        [DataRow(2.00, 2.00)]
+        [DataRow(5.00, 5.00)]
+        [DataRow(10.00, 10.00)]
 
 
-        public void FeedMoneyInTest(string moneyFed, string result)
+        public void FeedMoneyInTest(double moneyFed, double result)
         {
             ProductLoader productLoader = new ProductLoader();
 
