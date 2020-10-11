@@ -79,7 +79,7 @@ namespace Capstone
             int dimes = 0;
             int nickels = 0;
 
-            //Divide the balance by .25 then assign it to quarters. Modulo by .25 to decrement the balance
+            //Divide the balance by .25, cast it to an int, then assign it to quarters. Modulo by .25 to decrement the balance correctly
             quarters = (int)(Balance / .25M);
             Balance %= .25M;
 
