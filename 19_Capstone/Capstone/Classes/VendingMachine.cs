@@ -46,7 +46,7 @@ namespace Capstone
         }
 
         //Make a dispense item method that is passed in a slot location and dispenses a product at that slot location in the inventory
-        public Product dispenseItem(string slotLocation)
+        public Product DispenseItem(string slotLocation)
         {
             //Loop through all the products in Inventory  
             foreach (Product prod in Inventory)
@@ -72,7 +72,7 @@ namespace Capstone
         }
 
         //Make a dispense change method returning a list of integers, each representing the proper number of each coin dispensed
-        public List<int> dispenseChange()
+        public List<int> DispenseChange()
         {
             //Create coin variables
             int quarters = 0;

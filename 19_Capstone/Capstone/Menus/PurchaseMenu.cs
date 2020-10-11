@@ -101,7 +101,7 @@ namespace Capstone
             //Return to main menu
             if (yesOrNo == "N" || yesOrNo == "n")
             {
-                Console.WriteLine("Press enter to return to Purchase Menu");
+                Console.WriteLine("Press enter to return to Purchase Menu to select a product.");
             }
             return MenuOptionResult.WaitAfterMenuSelection;
         }
@@ -134,7 +134,7 @@ namespace Capstone
                             if (prod.Quantity > 0)
                             {
                                 //Dispense the item at the given slot location and print out the proper message based on product category
-                                vendingMachine.dispenseItem(prod.SlotLocation);
+                                vendingMachine.DispenseItem(prod.SlotLocation);
                                 Console.WriteLine($"You just bought: {prod.Name} | Price: ${prod.Price} | You have: ${this.vendingMachine.Balance} remaining.");
                                 if (prod.Category == "Chip")
                                 {
@@ -158,11 +158,14 @@ namespace Capstone
                             {
                                 Console.WriteLine("This product is sold out!");
                             }
+                            Console.WriteLine("Press enter to return to Purchase Menu.");
                         }
                         //Else tell them to feed more money
                         else
                         {
                             Console.WriteLine("You did not provide enough money, please feed more money and try again!");
+                            Console.WriteLine("Press enter to return to Purchase Menu to feed more money.");
+
                         }
                     }
                 }
@@ -171,8 +174,8 @@ namespace Capstone
             else
             {
                 Console.WriteLine("Your slot location is incorrect, please try again!");
+                Console.WriteLine("Press enter to return to Purchase Menu and select a different slot location.");
             }
-
             return MenuOptionResult.WaitAfterMenuSelection;
         }
 
@@ -186,12 +189,12 @@ namespace Capstone
             }
 
             //Assign the list of change that the dispense change method returns to a new list of change so we can print it out to user
-            List<int> change = vendingMachine.dispenseChange();
+            List<int> change = vendingMachine.DispenseChange();
 
             //Print proper change to user
-            Console.WriteLine($"You have been dispensed {change[0]} quarters {change[1]} dimes and {change[2]} nickels!");
+            Console.WriteLine($"You have been dispensed {change[0]} quarter(s) {change[1]} dime(s) and {change[2]} nickel(s)!");
 
-
+            Console.WriteLine("Press enter to return to Main Menu.");
             return MenuOptionResult.WaitThenCloseAfterSelection;
         }
         
